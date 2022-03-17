@@ -19,7 +19,7 @@ const bottom = gameArea.clientHeight;
 
 // The y-velocity of the computer paddle
 let computerPaddleYPosition = 0;
-let computerPaddleYVelocity = 2;
+// let computerPaddleYVelocity = 2;
 let ballYPosition = 0;
 let ballXPosition = 0;
 let ballYVelocity = 4;
@@ -27,17 +27,8 @@ let ballXVelocity = 4;
 let playerPaddleYPosition = parseInt(getComputedStyle(playerPaddle).getPropertyValue('top'));
 let playerPaddleYVelocity = 5;
 
-// Update the pong world
+
 function update() {
-
-    // Update the computer paddle's position
-    computerPaddleYPosition = computerPaddleYPosition + computerPaddleYVelocity;
-
-    if (computerPaddleYPosition === bottom - computerPaddle.clientHeight || computerPaddleYPosition === 0) {
-        computerPaddleYVelocity = -computerPaddleYVelocity
-    }
-    // Apply the y-position 
-    computerPaddle.style.top = `${computerPaddleYPosition}px`;
 
     ballXPosition += ballXVelocity;
     ballYPosition += ballYVelocity;
@@ -67,6 +58,18 @@ function update() {
 
     ball.style.top = `${ballYPosition}px`;
     ball.style.left = `${ballXPosition}px`;
+
+
+
+    computerPaddleYPosition = ballYPosition - computerPaddle.clientHeight/2;
+
+    if (computerPaddleYPosition > bottom - computerPaddle.clientHeight){
+        computerPaddleYPosition = bottom - computerPaddle.clientHeight;
+    } else if(computerPaddleYPosition < 0){
+        computerPaddleYPosition = 0;
+    };
+
+    computerPaddle.style.top = `${computerPaddleYPosition}px`;
 }
 
 // Call the update() function every 35ms
