@@ -13,11 +13,7 @@ const BALL_SIZE = 20;
 const computerPaddle = document.querySelector('.computer-paddle');
 const playerPaddle = document.querySelector('.player-paddle');
 const ball = document.querySelector('.ball');
-const gameArea = document.querySelector('.game-area');
-const right = gameArea.clientWidth;
-const bottom = gameArea.clientHeight;
 
-// The y-velocity of the computer paddle
 let computerPaddleYPosition = 0;
 // let computerPaddleYVelocity = 2;
 let ballYPosition = 0;
@@ -33,27 +29,27 @@ function update() {
     ballXPosition += ballXVelocity;
     ballYPosition += ballYVelocity;
 
-    if(ballXPosition > right - ball.clientWidth - computerPaddle.clientWidth && ballYPosition < computerPaddleYPosition + computerPaddle.clientHeight && ballYPosition + ball.clientHeight > computerPaddleYPosition){
-        ballXPosition = right - ball.clientWidth - computerPaddle.clientWidth
+    if(ballXPosition > GAME_AREA_WIDTH - BALL_SIZE - PADDLE_WIDTH && ballYPosition < computerPaddleYPosition + PADDLE_HEIGHT && ballYPosition + BALL_SIZE > computerPaddleYPosition){
+        ballXPosition = GAME_AREA_WIDTH - BALL_SIZE - PADDLE_WIDTH
     };
-    if (ballXPosition === right - ball.clientWidth - computerPaddle.clientWidth && ballYPosition < computerPaddleYPosition + computerPaddle.clientHeight && ballYPosition + ball.clientHeight > computerPaddleYPosition) {
+    if (ballXPosition === GAME_AREA_WIDTH - BALL_SIZE - PADDLE_WIDTH && ballYPosition < computerPaddleYPosition + PADDLE_HEIGHT && ballYPosition + BALL_SIZE > computerPaddleYPosition) {
         ballXVelocity = -ballXVelocity;
     }
 
-    if (ballXPosition < playerPaddle.clientWidth && ballYPosition < playerPaddleYPosition + playerPaddle.clientHeight && ballYPosition + ball.clientHeight > playerPaddleYPosition) {
-        ballXPosition = playerPaddle.clientWidth
+    if (ballXPosition < PADDLE_WIDTH && ballYPosition < playerPaddleYPosition + PADDLE_HEIGHT && ballYPosition + BALL_SIZE > playerPaddleYPosition) {
+        ballXPosition = PADDLE_WIDTH
     }
-    if (ballXPosition === playerPaddle.clientWidth && ballYPosition < playerPaddleYPosition + playerPaddle.clientHeight && ballYPosition + ball.clientHeight > playerPaddleYPosition) {
+    if (ballXPosition === PADDLE_WIDTH && ballYPosition < playerPaddleYPosition + PADDLE_HEIGHT && ballYPosition + BALL_SIZE > playerPaddleYPosition) {
         ballXVelocity = -ballXVelocity;
     }
 
-    if (ballYPosition >= bottom - ball.clientHeight || ballYPosition <= 0) {
+    if (ballYPosition >= GAME_AREA_HEIGHT - BALL_SIZE || ballYPosition <= 0) {
         ballYVelocity = -ballYVelocity;
     };
 
-    if (ballXPosition >= right - ball.clientWidth || ballXPosition <= 0) {
-        ballYPosition = bottom/2;
-        ballXPosition = right/2;
+    if (ballXPosition >= GAME_AREA_WIDTH - BALL_SIZE || ballXPosition <= 0) {
+        ballYPosition = GAME_AREA_HEIGHT/2;
+        ballXPosition = GAME_AREA_WIDTH/2;
     };
 
     ball.style.top = `${ballYPosition}px`;
@@ -61,10 +57,10 @@ function update() {
 
 
 
-    computerPaddleYPosition = ballYPosition - computerPaddle.clientHeight/2;
+    computerPaddleYPosition = ballYPosition - PADDLE_HEIGHT/2;
 
-    if (computerPaddleYPosition > bottom - computerPaddle.clientHeight){
-        computerPaddleYPosition = bottom - computerPaddle.clientHeight;
+    if (computerPaddleYPosition > GAME_AREA_HEIGHT - PADDLE_HEIGHT){
+        computerPaddleYPosition = GAME_AREA_HEIGHT - PADDLE_HEIGHT;
     } else if(computerPaddleYPosition < 0){
         computerPaddleYPosition = 0;
     };
@@ -83,7 +79,7 @@ if (e.code == 'ArrowUp'){
     playerPaddleYPosition -= playerPaddleYVelocity;
     };
 } else if (e.code == 'ArrowDown'){
-    if(playerPaddleYPosition < bottom - playerPaddle.clientHeight){
+    if(playerPaddleYPosition < GAME_AREA_HEIGHT - PADDLE_HEIGHT){
     playerPaddleYPosition += playerPaddleYVelocity;
     };
 };
