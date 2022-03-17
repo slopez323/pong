@@ -24,10 +24,11 @@ let ballYPosition = 0;
 let ballXPosition = 0;
 let ballYVelocity = 4;
 let ballXVelocity = 4;
+let playerPaddleYPosition = parseInt(getComputedStyle(playerPaddle).getPropertyValue('top'));
+let playerPaddleYVelocity = 5;
 
 // Update the pong world
 function update() {
-    let playerPaddleYPosition = parseInt(getComputedStyle(playerPaddle).getPropertyValue('top'));
 
     // Update the computer paddle's position
     computerPaddleYPosition = computerPaddleYPosition + computerPaddleYVelocity;
@@ -70,3 +71,18 @@ function update() {
 
 // Call the update() function every 35ms
 setInterval(update, 35);
+
+window.addEventListener('keydown',movePaddle);
+
+function movePaddle(e){
+if (e.code == 'ArrowUp'){
+    if(playerPaddleYPosition > 0){
+    playerPaddleYPosition -= playerPaddleYVelocity;
+    };
+} else if (e.code == 'ArrowDown'){
+    if(playerPaddleYPosition < bottom - playerPaddle.clientHeight){
+    playerPaddleYPosition += playerPaddleYVelocity;
+    };
+};
+playerPaddle.style.top = `${playerPaddleYPosition}px`;
+};
