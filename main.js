@@ -13,6 +13,8 @@ const BALL_SIZE = 20;
 const computerPaddle = document.querySelector('.computer-paddle');
 const playerPaddle = document.querySelector('.player-paddle');
 const ball = document.querySelector('.ball');
+const pScore = document.querySelector('.playerScore');
+const cScore = document.querySelector('.computerScore');
 
 let computerPaddleYPosition = 0;
 // let computerPaddleYVelocity = 2;
@@ -21,7 +23,10 @@ let ballXPosition = 0;
 let ballYVelocity = 4;
 let ballXVelocity = 4;
 let playerPaddleYPosition = parseInt(getComputedStyle(playerPaddle).getPropertyValue('top'));
-let playerPaddleYVelocity = 5;
+let playerPaddleYVelocity = 8;
+
+let playerScore = 0;
+let computerScore = 0;
 
 
 function update() {
@@ -47,7 +52,12 @@ function update() {
         ballYVelocity = -ballYVelocity;
     };
 
-    if (ballXPosition >= GAME_AREA_WIDTH - BALL_SIZE || ballXPosition <= 0) {
+    if (ballXPosition >= GAME_AREA_WIDTH - BALL_SIZE) {
+        playerScore++;
+        ballYPosition = GAME_AREA_HEIGHT/2;
+        ballXPosition = GAME_AREA_WIDTH/2;
+    } else if (ballXPosition <= 0) {
+        computerScore++;
         ballYPosition = GAME_AREA_HEIGHT/2;
         ballXPosition = GAME_AREA_WIDTH/2;
     };
@@ -55,6 +65,8 @@ function update() {
     ball.style.top = `${ballYPosition}px`;
     ball.style.left = `${ballXPosition}px`;
 
+    pScore.innerText = playerScore;
+    cScore.innerText = computerScore;
 
 
     computerPaddleYPosition = ballYPosition - PADDLE_HEIGHT/2;
